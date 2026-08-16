@@ -6,18 +6,6 @@ from openai import OpenAI
 
 app = FastAPI()
 
-# Read OPENAI_API_KEY and OPENAI_BASE_URL with course proxy default fallback
-raw_base = os.getenv("OPENAI_BASE_URL", "").strip()
-if not raw_base or "api.openai.com" in raw_base:
-    base_url = "https://llm.nat-d.uk/v1"
-else:
-    base_url = raw_base
-
-client = OpenAI(
-    api_key=api_key,
-    base_url=base_url
-)
-
 MODEL = "gemma-4-E4B-it"
 
 class ChatRequest(BaseModel):
@@ -34,6 +22,18 @@ def health():
 
 @app.post("/api/chat", response_model=ChatResponse)
 def chat(req: ChatRequest):
+    api_key = os.getenv("OPENAI_API_KEY", "").strip()
+    raw_base = os.getenv("OPENAI_BASE_URL", "").strip()
+    if not raw_base or "api.openai.com" in raw_base:
+        base_url = "https://llm.nat-d.uk/v1"
+    else:
+        base_url = raw_base
+
+    if not api_key:
+        raise HTTPException(status_code=500, detail="OPENAI_API_KEY is not set in environment variables")
+
+    client = OpenAI(api_key=api_key, base_url=base_url)
+
     try:
         resp = client.chat.completions.create(
             model=MODEL,
