@@ -1,10 +1,20 @@
+import os
 from fastapi import FastAPI, HTTPException
 from fastapi.staticfiles import StaticFiles
 from pydantic import BaseModel, Field
 from openai import OpenAI
 
 app = FastAPI()
-client = OpenAI()  # reads OPENAI_API_KEY + OPENAI_BASE_URL from the environment
+
+# Read OPENAI_API_KEY and OPENAI_BASE_URL with course proxy default fallback
+api_key = os.getenv("OPENAI_API_KEY")
+base_url = os.getenv("OPENAI_BASE_URL", "https://llm.nat-d.uk/v1")
+
+client = OpenAI(
+    api_key=api_key,
+    base_url=base_url
+)
+
 MODEL = "gemma-4-E4B-it"
 
 class ChatRequest(BaseModel):
