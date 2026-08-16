@@ -7,8 +7,11 @@ from openai import OpenAI
 app = FastAPI()
 
 # Read OPENAI_API_KEY and OPENAI_BASE_URL with course proxy default fallback
-api_key = os.getenv("OPENAI_API_KEY")
-base_url = os.getenv("OPENAI_BASE_URL", "https://llm.nat-d.uk/v1")
+raw_base = os.getenv("OPENAI_BASE_URL", "").strip()
+if not raw_base or "api.openai.com" in raw_base:
+    base_url = "https://llm.nat-d.uk/v1"
+else:
+    base_url = raw_base
 
 client = OpenAI(
     api_key=api_key,
