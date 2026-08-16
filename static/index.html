@@ -1,67 +1,51 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Chat with AI</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
-    <link rel="stylesheet" href="/static/style.css" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini chat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-    <div class="container">
-        <h1>AI Chat</h1>
-        <div class="chat-box" id="chatBox"></div>
-        <div class="input-area">
-            <textarea id="userInput" placeholder="Type your message..." rows="2"></textarea>
-            <button id="sendBtn">Send</button>
-        </div>
+  <div class="card">
+    <h1>Mini chat</h1>
+    <div class="input-group">
+      <input id="msg" placeholder="Ask something…" size="40">
+      <button id="send">Send</button>
     </div>
+    <pre id="out"></pre>
+  </div>
 
-    <script>
-        const sendBtn = document.getElementById('sendBtn');
-        const userInput = document.getElementById('userInput');
-        const chatBox = document.getElementById('chatBox');
+  <script>
+    const out = document.getElementById("out");
+    const msgInput = document.getElementById("msg");
+    const sendBtn = document.getElementById("send");
 
-        async function sendMessage() {
-            const message = userInput.value.trim();
-            if (!message) return;
-            // Append user message
-            appendMessage('user', message);
-            userInput.value = '';
-            sendBtn.disabled = true;
-            try {
-                const response = await fetch('/api/chat', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({
-                        messages: [{ role: 'user', content: message }]
-                    })
-                });
-                const data = await response.json();
-                const reply = data.reply || 'Error: no reply';
-                appendMessage('assistant', reply);
-            } catch (e) {
-                appendMessage('assistant', 'Error contacting server');
-            } finally {
-                sendBtn.disabled = false;
-            }
-        }
-
-        function appendMessage(sender, text) {
-            const msgDiv = document.createElement('div');
-            msgDiv.className = `message ${sender}`;
-            msgDiv.textContent = text;
-            chatBox.appendChild(msgDiv);
-            chatBox.scrollTop = chatBox.scrollHeight;
-        }
-
-        sendBtn.addEventListener('click', sendMessage);
-        userInput.addEventListener('keydown', (e) => {
-            if (e.key === 'Enter' && !e.shiftKey) {
-                e.preventDefault();
-                sendMessage();
-            }
+    async function doSend() {
+      const message = msgInput.value;
+      if (!message.trim()) return;
+      out.textContent = "…thinking…";
+      sendBtn.disabled = true;
+      try {
+        const r = await fetch("/api/chat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ message }),
         });
-    </script>
+        const data = await r.json();
+        out.textContent = r.ok ? data.reply : `Error ${r.status}: ${JSON.stringify(data.detail)}`;
+      } catch (err) {
+        out.textContent = `Error: ${err.message}`;
+      } finally {
+        sendBtn.disabled = false;
+      }
+    }
+
+    sendBtn.onclick = doSend;
+    msgInput.onkeydown = (e) => {
+      if (e.key === "Enter") doSend();
+    };
+  </script>
 </body>
 </html>

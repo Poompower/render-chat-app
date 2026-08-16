@@ -45,16 +45,16 @@ Open http://localhost:8000 in a browser – you should see the chat UI.
    - `OPENAI_BASE_URL` – usually `https://api.openai.com/v1`.
 7. Click **Create Web Service** and wait for the deployment to finish.
 
-When the service is live, the root URL (e.g. `https://render-chat-app.onrender.com`) will display the chat page, and the same origin will serve the `/api/chat` endpoint.
+When the service is live, the root URL (`https://render-chat-app-f56x.onrender.com`) will display the chat page, and the same origin will serve the `/api/chat` endpoint.
 
 ## Testing the deployed service
-You can use the Yaad tool (or any HTTP client) to issue a request:
+You can use Yaak (or any HTTP client like `curl`) to issue a request:
 ```bash
-curl -X POST https://render-chat-app.onrender.com/api/chat \
+curl -X POST https://render-chat-app-f56x.onrender.com/api/chat \
   -H "Content-Type: application/json" \
-  -d '{"messages":[{"role":"user","content":"Hello!"}]}'
+  -d '{"message": "Hello!"}'
 ```
-You should receive a JSON response containing the assistant's reply.
+You should receive a JSON response containing the assistant's reply and model info (`{"reply": "...", "model": "gemma-4-E4B-it"}`).
 
 ---
 Feel free to customise the UI (logo, colors, etc.) – just edit `static/index.html` and `static/style.css` and push the changes.

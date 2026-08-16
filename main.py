@@ -1,43 +1,38 @@
-import os
 from fastapi import FastAPI, HTTPException
-from fastapi.responses import JSONResponse, FileResponse
 from fastapi.staticfiles import StaticFiles
-from pydantic import BaseModel
-import openai
+from pydantic import BaseModel, Field
+from openai import OpenAI
 
 app = FastAPI()
-
-# Serve static files (index.html etc.)
-app.mount("/static", StaticFiles(directory="static"), name="static")
-
-# Root returns the static index.html
-@app.get("/", response_class=FileResponse)
-async def root():
-    return FileResponse("static/index.html")
-
-class ChatMessage(BaseModel):
-    role: str
-    content: str
+client = OpenAI()  # reads OPENAI_API_KEY + OPENAI_BASE_URL from the environment
+MODEL = "gemma-4-E4B-it"
 
 class ChatRequest(BaseModel):
-    messages: list[ChatMessage]
-    model: str = "gpt-3.5-turbo"
-    temperature: float = 0.7
+    message: str = Field(min_length=1, max_length=2000)
+    temperature: float = Field(0.7, ge=0.0, le=2.0)
 
-@app.post("/api/chat")
-async def chat(request: ChatRequest):
-    api_key = os.getenv("OPENAI_API_KEY")
-    base_url = os.getenv("OPENAI_BASE_URL")
-    if not api_key or not base_url:
-        raise HTTPException(status_code=500, detail="OPENAI_API_KEY or OPENAI_BASE_URL not set")
-    openai.api_key = api_key
-    openai.base_url = base_url
+class ChatResponse(BaseModel):
+    reply: str
+    model: str
+
+@app.get("/api/health")
+def health():
+    return {"status": "ok"}
+
+@app.post("/api/chat", response_model=ChatResponse)
+def chat(req: ChatRequest):
     try:
-        response = await openai.ChatCompletion.acreate(
-            model=request.model,
-            messages=[msg.dict() for msg in request.messages],
-            temperature=request.temperature,
+        resp = client.chat.completions.create(
+            model=MODEL,
+            temperature=req.temperature,
+            messages=[
+                {"role": "system", "content": "You are a helpful, terse assistant."},
+                {"role": "user", "content": req.message},
+            ],
         )
-        return JSONResponse(content={"reply": response.choices[0].message.content})
-    except Exception as e:
-        raise HTTPException(status_code=500, detail=str(e))
+    except Exception:
+        raise HTTPException(status_code=502, detail="upstream model error")
+    return ChatResponse(reply=resp.choices[0].message.content, model=MODEL)
+
+# Serve the web page from ./static at "/". Mount LAST so /api/* routes match first.
+app.mount("/", StaticFiles(directory="static", html=True), name="static")
