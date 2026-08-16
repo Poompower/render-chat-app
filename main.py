@@ -30,8 +30,9 @@ def chat(req: ChatRequest):
                 {"role": "user", "content": req.message},
             ],
         )
-    except Exception:
-        raise HTTPException(status_code=502, detail="upstream model error")
+    except Exception as e:
+        print(f"Error calling upstream model: {e}", flush=True)
+        raise HTTPException(status_code=502, detail=f"upstream model error: {str(e)}")
     return ChatResponse(reply=resp.choices[0].message.content, model=MODEL)
 
 # Serve the web page from ./static at "/". Mount LAST so /api/* routes match first.
