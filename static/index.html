@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat with AI</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+    <div class="container">
+        <h1>AI Chat</h1>
+        <div class="chat-box" id="chatBox"></div>
+        <div class="input-area">
+            <textarea id="userInput" placeholder="Type your message..." rows="2"></textarea>
+            <button id="sendBtn">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const sendBtn = document.getElementById('sendBtn');
+        const userInput = document.getElementById('userInput');
+        const chatBox = document.getElementById('chatBox');
+
+        async function sendMessage() {
+            const message = userInput.value.trim();
+            if (!message) return;
+            // Append user message
+            appendMessage('user', message);
+            userInput.value = '';
+            sendBtn.disabled = true;
+            try {
+                const response = await fetch('/api/chat', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        messages: [{ role: 'user', content: message }]
+                    })
+                });
+                const data = await response.json();
+                const reply = data.reply || 'Error: no reply';
+                appendMessage('assistant', reply);
+            } catch (e) {
+                appendMessage('assistant', 'Error contacting server');
+            } finally {
+                sendBtn.disabled = false;
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `message ${sender}`;
+            msgDiv.textContent = text;
+            chatBox.appendChild(msgDiv);
+            chatBox.scrollTop = chatBox.scrollHeight;
+        }
+
+        sendBtn.addEventListener('click', sendMessage);
+        userInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey) {
+                e.preventDefault();
+                sendMessage();
+            }
+        });
+    </script>
+</body>
+</html>
