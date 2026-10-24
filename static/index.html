@@ -3,49 +3,237 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Mini chat</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <title>OmniTech AI — Support & Hardware Knowledge Agent</title>
+  <meta name="description" content="End-to-End LLM Capstone Project featuring Agentic RAG, Text-to-SQL, and Quantitative Evaluation benchmarked against baselines.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
-  <div class="card">
-    <h1>Mini chat</h1>
-    <div class="input-group">
-      <input id="msg" placeholder="Ask something…" size="40">
-      <button id="send">Send</button>
-    </div>
-    <pre id="out"></pre>
+  <div class="app-container">
+    <!-- Top Navigation Bar -->
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div>
+          <div class="brand-title">OmniTech AI</div>
+          <div class="brand-sub">Enterprise Support & Hardware Intelligence</div>
+        </div>
+      </div>
+
+      <nav class="nav-tabs">
+        <button class="tab-btn active" id="tab-chat-btn" onclick="switchTab('chat')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          </svg>
+          Chat Agent
+        </button>
+        <button class="tab-btn" id="tab-eval-btn" onclick="switchTab('eval')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M18 20V10M12 20V4M6 20v-6"/>
+          </svg>
+          Evaluation Benchmark (30 Cases)
+        </button>
+        <button class="tab-btn" id="tab-data-btn" onclick="switchTab('data')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+          </svg>
+          Corpus & Database
+        </button>
+      </nav>
+
+      <div class="header-status">
+        <span class="status-indicator"></span>
+        <span class="status-text" id="system-status">gemma-4-E4B-it • Ready</span>
+      </div>
+    </header>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+      <!-- 1. CHAT TAB -->
+      <section id="pane-chat" class="tab-pane active">
+        <div class="chat-layout">
+          <!-- Left: Chat conversation stream -->
+          <div class="chat-main">
+            <!-- Sample Prompt Chips -->
+            <div class="chips-container">
+              <span class="chips-label">Try asking:</span>
+              <div class="chips-list" id="sample-chips">
+                <!-- Injected by JavaScript -->
+              </div>
+            </div>
+
+            <!-- Messages list -->
+            <div class="messages-container" id="messages-list">
+              <div class="message assistant-msg intro-msg">
+                <div class="msg-avatar">AI</div>
+                <div class="msg-bubble">
+                  <div class="msg-header">
+                    <span class="msg-author">OmniTech Support AI</span>
+                    <span class="msg-badge">Agentic Hybrid RAG + Text-to-SQL</span>
+                  </div>
+                  <div class="msg-text">
+                    Hello! I am your OmniTech Technical & Customer Support Assistant. I can help you with:
+                    <ul>
+                      <li><strong>Technical Troubleshooting & Specifications:</strong> Step-by-step guides for AeroPulse headphones, TitanBook laptop, ChronoFit smartwatch, etc.</li>
+                      <li><strong>Policies & Terms:</strong> 30-day money-back guarantee, return procedures, warranty coverage, and shipping timeframes.</li>
+                      <li><strong>Live Database Queries:</strong> Order tracking, warehouse stock counts, customer purchase histories, and refund requests.</li>
+                    </ul>
+                    Ask a question below or click any quick sample prompt above!
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Input bar -->
+            <div class="chat-input-wrapper">
+              <form id="chat-form" onsubmit="handleSendMessage(event)">
+                <input 
+                  type="text" 
+                  id="user-input" 
+                  placeholder="Ask a technical, policy, or order question (e.g. 'What is the tracking number of ORD-1001?')..." 
+                  autocomplete="off"
+                  required
+                />
+                <button type="submit" id="send-button" class="btn-primary">
+                  <span>Send</span>
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <line x1="22" y1="2" x2="11" y2="13"/>
+                    <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+                  </svg>
+                </button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. EVALUATION BENCHMARK TAB -->
+      <section id="pane-eval" class="tab-pane">
+        <div class="eval-dashboard">
+          <div class="eval-header-bar">
+            <div>
+              <h2>Quantitative Evaluation Benchmark</h2>
+              <p>Comparing Naive Baseline (BM25 Only) vs. Improved Hybrid RAG (BM25 + Semantic Vector + RRF + Score Filtering) over 30 labelled gold test cases.</p>
+            </div>
+            <button class="btn-refresh" id="btn-run-eval" onclick="refreshEvaluation()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="23 4 23 10 17 10"/>
+                <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
+              </svg>
+              Run Benchmark Now
+            </button>
+          </div>
+
+          <!-- Metric Cards -->
+          <div class="metrics-grid">
+            <div class="metric-card">
+              <div class="metric-label">Recall@1 (Top-1 Precision)</div>
+              <div class="metric-value-row">
+                <span class="metric-val" id="val-hybrid-r1">90.0%</span>
+                <span class="metric-badge positive" id="badge-r1-gain">+12.5% vs Baseline</span>
+              </div>
+              <div class="metric-sub" id="sub-baseline-r1">Baseline (BM25 Only): 80.0%</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-label">Recall@5 (Top-5 Retrieval)</div>
+              <div class="metric-value-row">
+                <span class="metric-val" id="val-hybrid-r5">100.0%</span>
+                <span class="metric-badge neutral">100% Found</span>
+              </div>
+              <div class="metric-sub">Ground-truth passage present in top-5 candidate set</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-label">Mean Reciprocal Rank (MRR)</div>
+              <div class="metric-value-row">
+                <span class="metric-val" id="val-hybrid-mrr">0.9500</span>
+                <span class="metric-badge positive" id="badge-mrr-gain">+5.6% vs Baseline</span>
+              </div>
+              <div class="metric-sub" id="sub-baseline-mrr">Baseline (BM25 Only): 0.9000</div>
+            </div>
+
+            <div class="metric-card">
+              <div class="metric-label">Guarded SQL Execution Accuracy</div>
+              <div class="metric-value-row">
+                <span class="metric-val" id="val-sql-acc">100.0%</span>
+                <span class="metric-badge positive">10/10 Gold Cases</span>
+              </div>
+              <div class="metric-sub">Single-statement SELECT guard & 0 syntax faults</div>
+            </div>
+          </div>
+
+          <!-- Benchmark Table -->
+          <div class="card-section">
+            <div class="section-title">
+              <h3>30-Case Test Suite Results & Retrieval Comparison</h3>
+              <span class="pill-counter" id="test-case-count">30 Samples</span>
+            </div>
+            <div class="table-container">
+              <table class="benchmark-table" id="benchmark-table">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Category</th>
+                    <th>Test Question</th>
+                    <th>Baseline Top-1</th>
+                    <th>Hybrid Top-1</th>
+                    <th>Citation / Ground Truth</th>
+                  </tr>
+                </thead>
+                <tbody id="benchmark-tbody">
+                  <!-- Populated dynamically via JS -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- Failure Case Analysis Card -->
+          <div class="card-section">
+            <div class="section-title">
+              <h3>Honest Failure Case Analysis & Architectural Defenses</h3>
+            </div>
+            <div class="failure-grid" id="failure-cases-list">
+              <!-- Populated dynamically -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3. CORPUS & DATABASE TAB -->
+      <section id="pane-data" class="tab-pane">
+        <div class="data-layout">
+          <div class="card-section">
+            <div class="section-title">
+              <h3>Unstructured Knowledge Base (15 Document Chunks)</h3>
+              <span class="pill-counter">Markdown Corpus</span>
+            </div>
+            <div class="docs-list" id="docs-list">
+              <!-- Injected by JavaScript -->
+            </div>
+          </div>
+
+          <div class="card-section">
+            <div class="section-title">
+              <h3>Relational Store Schema (SQLite)</h3>
+              <span class="pill-counter">store.db</span>
+            </div>
+            <div class="schema-display">
+              <pre><code id="schema-code">-- Loading schema...</code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
 
-  <script>
-    const out = document.getElementById("out");
-    const msgInput = document.getElementById("msg");
-    const sendBtn = document.getElementById("send");
-
-    async function doSend() {
-      const message = msgInput.value;
-      if (!message.trim()) return;
-      out.textContent = "…thinking…";
-      sendBtn.disabled = true;
-      try {
-        const r = await fetch("/api/chat", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ message }),
-        });
-        const data = await r.json();
-        out.textContent = r.ok ? data.reply : `Error ${r.status}: ${JSON.stringify(data.detail)}`;
-      } catch (err) {
-        out.textContent = `Error: ${err.message}`;
-      } finally {
-        sendBtn.disabled = false;
-      }
-    }
-
-    sendBtn.onclick = doSend;
-    msgInput.onkeydown = (e) => {
-      if (e.key === "Enter") doSend();
-    };
-  </script>
+  <script src="/app.js"></script>
 </body>
 </html>

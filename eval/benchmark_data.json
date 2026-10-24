@@ -1,0 +1,212 @@
+[
+  {
+    "id": "TC-01",
+    "question": "What is the return window for OmniTech products, and is there any restocking fee for opened items?",
+    "category": "RAG",
+    "expected_chunks": ["chk_013"],
+    "ground_truth_answer": "30-day money-back guarantee. A 15% restocking fee applies if the product packaging has been unsealed or opened."
+  },
+  {
+    "id": "TC-02",
+    "question": "Does the warranty cover rechargeable batteries, and for how long?",
+    "category": "RAG",
+    "expected_chunks": ["chk_014"],
+    "ground_truth_answer": "Rechargeable lithium-ion batteries carry a separate 6-month limited warranty. Normal degradation up to 20% in 1 year is not covered."
+  },
+  {
+    "id": "TC-03",
+    "question": "Can I wear the smartwatch in a hot steam sauna or while scuba diving?",
+    "category": "RAG",
+    "expected_chunks": ["chk_010", "chk_014"],
+    "ground_truth_answer": "No. The ChronoFit Pro has a 5ATM rating for shallow swimming only. Hot tubs, saunas, steam, and diving void the warranty immediately."
+  },
+  {
+    "id": "TC-04",
+    "question": "How long does standard domestic shipping take in Thailand, and what is the minimum order for free shipping?",
+    "category": "RAG",
+    "expected_chunks": ["chk_001"],
+    "ground_truth_answer": "Standard domestic shipping takes 2 to 4 business days. Free for orders exceeding 1,500 THB; flat rate of 60 THB otherwise."
+  },
+  {
+    "id": "TC-05",
+    "question": "What time is the cutoff for same-day or next-day express delivery in Bangkok?",
+    "category": "RAG",
+    "expected_chunks": ["chk_001"],
+    "ground_truth_answer": "Orders placed before 14:00 (2:00 PM) qualify for Express Same-Day/Next-Day delivery in the Bangkok Metropolitan Region for a flat 150 THB fee."
+  },
+  {
+    "id": "TC-06",
+    "question": "How do I perform a factory reset on the AeroPulse ANC-X headphones?",
+    "category": "RAG",
+    "expected_chunks": ["chk_006"],
+    "ground_truth_answer": "While headphones are powered on, simultaneously press and hold the Power button and ANC button for 8 seconds until the LED flashes purple 3 times."
+  },
+  {
+    "id": "TC-07",
+    "question": "How many external 4K monitors can the TitanBook 14 laptop connect to simultaneously?",
+    "category": "RAG",
+    "expected_chunks": ["chk_008"],
+    "ground_truth_answer": "Up to two 4K 60Hz external monitors simultaneously through Thunderbolt 4 ports, or one 4K 120Hz display via HDMI 2.1."
+  },
+  {
+    "id": "TC-08",
+    "question": "My laptop gets blazing hot and throttles under heavy load, how do I toggle cooling fan profiles?",
+    "category": "RAG",
+    "expected_chunks": ["chk_007"],
+    "ground_truth_answer": "Press Fn + Q to cycle between Quiet (15W TDP), Balanced (28W TDP), and Extreme Performance (45W TDP) modes, and ensure bottom/rear vents are clear."
+  },
+  {
+    "id": "TC-09",
+    "question": "Can I replace key switches if a key stops responding on the mechanical keyboard?",
+    "category": "RAG",
+    "expected_chunks": ["chk_009"],
+    "ground_truth_answer": "Yes, switches are hot-swappable. Use the switch puller to gently pull the switch vertically upwards, clean socket contacts, and re-insert straight."
+  },
+  {
+    "id": "TC-10",
+    "question": "How many business days does it take to receive a refund after the returned package is received at the warehouse?",
+    "category": "RAG",
+    "expected_chunks": ["chk_015"],
+    "ground_truth_answer": "Refunds are processed within 5 to 7 business days after the package is received and inspected at the central warehouse in Bangkok."
+  },
+  {
+    "id": "TC-11",
+    "question": "How many products in total are in the Audio category?",
+    "category": "SQL",
+    "gold_sql": "SELECT COUNT(*) FROM products WHERE category = 'Audio'",
+    "ground_truth_answer": "4"
+  },
+  {
+    "id": "TC-12",
+    "question": "What is the price and current stock count of the 'OmniTech TitanBook 14'?",
+    "category": "SQL",
+    "gold_sql": "SELECT price, stock FROM products WHERE name LIKE '%TitanBook 14%'",
+    "ground_truth_answer": "Price: 38900.0 THB, Stock: 9 units"
+  },
+  {
+    "id": "TC-13",
+    "question": "Which products currently have fewer than 10 units in stock?",
+    "category": "SQL",
+    "gold_sql": "SELECT name, stock FROM products WHERE stock < 10 ORDER BY stock ASC",
+    "ground_truth_answer": "OmniTech VisionAir 4K Drone (4), OmniTech SonicBuds Wireless (5), OmniTech TitanBook 14 (9)"
+  },
+  {
+    "id": "TC-14",
+    "question": "What is the status and tracking number of order ORD-1001?",
+    "category": "SQL",
+    "gold_sql": "SELECT status, tracking_number FROM orders WHERE order_id = 'ORD-1001'",
+    "ground_truth_answer": "Status: delivered, Tracking: TH-KRY-882910"
+  },
+  {
+    "id": "TC-15",
+    "question": "How many orders are currently in 'processing' status?",
+    "category": "SQL",
+    "gold_sql": "SELECT COUNT(*) FROM orders WHERE status = 'processing'",
+    "ground_truth_answer": "3"
+  },
+  {
+    "id": "TC-16",
+    "question": "What is the total revenue generated from all delivered orders?",
+    "category": "SQL",
+    "gold_sql": "SELECT SUM(total_price) FROM orders WHERE status = 'delivered'",
+    "ground_truth_answer": "129840.0"
+  },
+  {
+    "id": "TC-17",
+    "question": "Who is the customer and what is their email for order ORD-1003?",
+    "category": "SQL",
+    "gold_sql": "SELECT customer_name, customer_email FROM orders WHERE order_id = 'ORD-1003'",
+    "ground_truth_answer": "Kittipong Chaiyaphum (kittipong@email.com)"
+  },
+  {
+    "id": "TC-18",
+    "question": "Which product has the highest customer rating in the catalog?",
+    "category": "SQL",
+    "gold_sql": "SELECT name, rating FROM products ORDER BY rating DESC, price DESC LIMIT 1",
+    "ground_truth_answer": "OmniTech TitanBook 14 or OmniTech USB-C Thunderbolt 4 Cable (Rating: 4.9)"
+  },
+  {
+    "id": "TC-19",
+    "question": "How many return requests have been submitted and what is the total refund amount approved or refunded?",
+    "category": "SQL",
+    "gold_sql": "SELECT COUNT(*), SUM(refund_amount) FROM returns WHERE status IN ('approved', 'refunded')",
+    "ground_truth_answer": "4 returns approved/refunded, total amount 47170.0 THB (out of 5 total returns)"
+  },
+  {
+    "id": "TC-20",
+    "question": "Which customer bought the highest number of MechWave RGB Keyboards in a single order?",
+    "category": "SQL",
+    "gold_sql": "SELECT customer_name, quantity FROM orders WHERE product_id = 4 ORDER BY quantity DESC LIMIT 1",
+    "ground_truth_answer": "Natdanai Siriporn (quantity: 2)"
+  },
+  {
+    "id": "TC-21",
+    "question": "What is the return policy for defective items within 14 days, and what is the status of return RET-501?",
+    "category": "COMPOUND",
+    "expected_tools": ["search_knowledge_base", "query_database"],
+    "ground_truth_answer": "Defective items returned within 14 days receive a pre-paid DHL/Kerry return label. Return RET-501 for order ORD-1011 has been approved."
+  },
+  {
+    "id": "TC-22",
+    "question": "Check the delivery status of order ORD-1002 and explain whether the buyer can return it if they just changed their mind.",
+    "category": "COMPOUND",
+    "expected_tools": ["get_order_status", "search_knowledge_base"],
+    "ground_truth_answer": "ORD-1002 was delivered on 2026-10-05. Under the 30-day money-back guarantee, change of mind returns are accepted within 30 days but the customer pays return shipping and a 15% restocking fee if opened."
+  },
+  {
+    "id": "TC-23",
+    "question": "How much does the AeroPulse ANC-X cost, how many are in stock, and what audio codecs does it support?",
+    "category": "COMPOUND",
+    "expected_tools": ["query_database", "search_knowledge_base"],
+    "ground_truth_answer": "Price is 4590.0 THB with 42 units in stock. It supports SBC, AAC, and LDAC audio codecs."
+  },
+  {
+    "id": "TC-24",
+    "question": "What is the warranty period for order ORD-1015, and what thermal management shortcuts are available on that device?",
+    "category": "COMPOUND",
+    "expected_tools": ["query_database", "search_knowledge_base"],
+    "ground_truth_answer": "ORD-1015 is a TitanBook 14 with a 12-month warranty. Thermal profiles can be toggled using Fn + Q (Quiet, Balanced, Extreme Performance)."
+  },
+  {
+    "id": "TC-25",
+    "question": "Check the status of order ORD-1007 and tell the customer what shipping timeframe to expect once dispatched.",
+    "category": "COMPOUND",
+    "expected_tools": ["get_order_status", "search_knowledge_base"],
+    "ground_truth_answer": "ORD-1007 is currently 'processing'. Standard domestic shipping in Thailand takes 2 to 4 business days once dispatched."
+  },
+  {
+    "id": "TC-26",
+    "question": "Hello there! Can you help me?",
+    "category": "CHITCHAT",
+    "expected_tools": [],
+    "ground_truth_answer": "Hello! Welcome to OmniTech Electronics support. How can I help you today?"
+  },
+  {
+    "id": "TC-27",
+    "question": "Thanks for your great help, that answers everything!",
+    "category": "CHITCHAT",
+    "expected_tools": [],
+    "ground_truth_answer": "You're very welcome! If you have any more questions, feel free to ask. Have a great day!"
+  },
+  {
+    "id": "TC-28",
+    "question": "What is your role here?",
+    "category": "CHITCHAT",
+    "expected_tools": [],
+    "ground_truth_answer": "I am the OmniTech Support AI assistant. I can answer questions about product specs, policies, and order statuses."
+  },
+  {
+    "id": "TC-29",
+    "question": "Who was the prime minister of the UK in 1940?",
+    "category": "CHITCHAT",
+    "expected_tools": [],
+    "ground_truth_answer": "Winston Churchill (or direct conversational polite refusal explaining focus is OmniTech support)."
+  },
+  {
+    "id": "TC-30",
+    "question": "Good evening, have a good night!",
+    "category": "CHITCHAT",
+    "expected_tools": [],
+    "ground_truth_answer": "Good evening! Thank you, have a wonderful night!"
+  }
+]

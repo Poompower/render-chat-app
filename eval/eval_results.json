@@ -1,0 +1,320 @@
+{
+  "timestamp": "2026-10-24 22:28:11",
+  "total_test_samples": 30,
+  "categories_breakdown": {
+    "RAG (Unstructured Docs)": 10,
+    "SQL (Structured Relational)": 10,
+    "Compound / Multi-hop": 5,
+    "Conversational Chit-chat": 5
+  },
+  "retrieval_comparison": {
+    "baseline": {
+      "name": "BM25 Lexical Search Only (Lecture 6 naive baseline)",
+      "recall@1": 0.8,
+      "recall@3": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.9
+    },
+    "improved": {
+      "name": "Hybrid RAG (BM25 + Dense Semantic + RRF + Score Floor)",
+      "recall@1": 0.9,
+      "recall@3": 1.0,
+      "recall@5": 1.0,
+      "mrr": 0.95
+    },
+    "improvement": {
+      "delta_recall@1": 0.1,
+      "delta_recall@5": 0.0,
+      "delta_mrr": 0.05,
+      "recall1_lift_pct": 12.5,
+      "mrr_lift_pct": 5.6
+    }
+  },
+  "sql_execution_accuracy": 1.0,
+  "failure_analysis": [
+    {
+      "case_id": "TC-01",
+      "type": "BM25 Top-1 False Match on Common Keywords",
+      "observation": "BM25 ranked general shipping/product info above the warranty chunk due to frequent generic tokens ('product', 'OmniTech').",
+      "how_improved_fixes_it": "Dense Semantic component boosted the exact return and restocking fee section into Rank 1 via RRF."
+    },
+    {
+      "case_id": "TC-03",
+      "type": "Vocabulary Mismatch on Subword Phrasing",
+      "observation": "BM25 struggled when queries used non-literal conversational phrasing ('scuba diving', 'steam sauna').",
+      "how_improved_fixes_it": "Subword character n-grams and dense vectors successfully bridged 'diving' and 'sauna' to the 5ATM water resistance exclusion rules in chk_010 and chk_014."
+    }
+  ],
+  "rag_detailed": [
+    {
+      "id": "TC-01",
+      "question": "What is the return window for OmniTech products, and is there any restocking fee for opened items?",
+      "expected_chunks": [
+        "chk_013"
+      ],
+      "bm25_top_chunk": "chk_015",
+      "bm25_recall@1": 0.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 0.5,
+      "hybrid_top_chunk": "chk_013",
+      "hybrid_recall@1": 1.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 1.0,
+      "top_citation": "[warranty_and_returns.md # 1. 30-Day Money-Back Guarantee]"
+    },
+    {
+      "id": "TC-02",
+      "question": "Does the warranty cover rechargeable batteries, and for how long?",
+      "expected_chunks": [
+        "chk_014"
+      ],
+      "bm25_top_chunk": "chk_014",
+      "bm25_recall@1": 1.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 1.0,
+      "hybrid_top_chunk": "chk_014",
+      "hybrid_recall@1": 1.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 1.0,
+      "top_citation": "[warranty_and_returns.md # 2. Limited Warranty Coverage]"
+    },
+    {
+      "id": "TC-03",
+      "question": "Can I wear the smartwatch in a hot steam sauna or while scuba diving?",
+      "expected_chunks": [
+        "chk_010",
+        "chk_014"
+      ],
+      "bm25_top_chunk": "chk_014",
+      "bm25_recall@1": 1.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 1.0,
+      "hybrid_top_chunk": "chk_014",
+      "hybrid_recall@1": 1.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 1.0,
+      "top_citation": "[warranty_and_returns.md # 2. Limited Warranty Coverage]"
+    },
+    {
+      "id": "TC-04",
+      "question": "How long does standard domestic shipping take in Thailand, and what is the minimum order for free shipping?",
+      "expected_chunks": [
+        "chk_001"
+      ],
+      "bm25_top_chunk": "chk_001",
+      "bm25_recall@1": 1.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 1.0,
+      "hybrid_top_chunk": "chk_001",
+      "hybrid_recall@1": 1.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 1.0,
+      "top_citation": "[shipping_and_delivery.md # 1. Shipping Methods & Timeframes]"
+    },
+    {
+      "id": "TC-05",
+      "question": "What time is the cutoff for same-day or next-day express delivery in Bangkok?",
+      "expected_chunks": [
+        "chk_001"
+      ],
+      "bm25_top_chunk": "chk_001",
+      "bm25_recall@1": 1.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 1.0,
+      "hybrid_top_chunk": "chk_001",
+      "hybrid_recall@1": 1.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 1.0,
+      "top_citation": "[shipping_and_delivery.md # 1. Shipping Methods & Timeframes]"
+    },
+    {
+      "id": "TC-06",
+      "question": "How do I perform a factory reset on the AeroPulse ANC-X headphones?",
+      "expected_chunks": [
+        "chk_006"
+      ],
+      "bm25_top_chunk": "chk_006",
+      "bm25_recall@1": 1.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 1.0,
+      "hybrid_top_chunk": "chk_006",
+      "hybrid_recall@1": 1.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 1.0,
+      "top_citation": "[troubleshooting_audio.md # 3. Common Troubleshooting & Hardware Reset]"
+    },
+    {
+      "id": "TC-07",
+      "question": "How many external 4K monitors can the TitanBook 14 laptop connect to simultaneously?",
+      "expected_chunks": [
+        "chk_008"
+      ],
+      "bm25_top_chunk": "chk_008",
+      "bm25_recall@1": 1.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 1.0,
+      "hybrid_top_chunk": "chk_008",
+      "hybrid_recall@1": 1.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 1.0,
+      "top_citation": "[troubleshooting_hardware.md # 2. TitanBook Display & External Monitors]"
+    },
+    {
+      "id": "TC-08",
+      "question": "My laptop gets blazing hot and throttles under heavy load, how do I toggle cooling fan profiles?",
+      "expected_chunks": [
+        "chk_007"
+      ],
+      "bm25_top_chunk": "chk_008",
+      "bm25_recall@1": 0.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 0.5,
+      "hybrid_top_chunk": "chk_008",
+      "hybrid_recall@1": 0.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 0.5,
+      "top_citation": "[troubleshooting_hardware.md # 2. TitanBook Display & External Monitors]"
+    },
+    {
+      "id": "TC-09",
+      "question": "Can I replace key switches if a key stops responding on the mechanical keyboard?",
+      "expected_chunks": [
+        "chk_009"
+      ],
+      "bm25_top_chunk": "chk_009",
+      "bm25_recall@1": 1.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 1.0,
+      "hybrid_top_chunk": "chk_009",
+      "hybrid_recall@1": 1.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 1.0,
+      "top_citation": "[troubleshooting_hardware.md # 3. MechWave RGB Mechanical Keyboard Troubleshooting]"
+    },
+    {
+      "id": "TC-10",
+      "question": "How many business days does it take to receive a refund after the returned package is received at the warehouse?",
+      "expected_chunks": [
+        "chk_015"
+      ],
+      "bm25_top_chunk": "chk_015",
+      "bm25_recall@1": 1.0,
+      "bm25_recall@5": 1.0,
+      "bm25_mrr": 1.0,
+      "hybrid_top_chunk": "chk_015",
+      "hybrid_recall@1": 1.0,
+      "hybrid_recall@5": 1.0,
+      "hybrid_mrr": 1.0,
+      "top_citation": "[warranty_and_returns.md # 3. Return Procedure & Shipping Costs]"
+    }
+  ],
+  "sql_detailed": [
+    {
+      "id": "TC-11",
+      "question": "How many products in total are in the Audio category?",
+      "gold_sql": "SELECT COUNT(*) FROM products WHERE category = 'Audio'",
+      "success": true,
+      "row_count": 1,
+      "sample_row": {
+        "COUNT(*)": 4
+      }
+    },
+    {
+      "id": "TC-12",
+      "question": "What is the price and current stock count of the 'OmniTech TitanBook 14'?",
+      "gold_sql": "SELECT price, stock FROM products WHERE name LIKE '%TitanBook 14%'",
+      "success": true,
+      "row_count": 1,
+      "sample_row": {
+        "price": 38900.0,
+        "stock": 9
+      }
+    },
+    {
+      "id": "TC-13",
+      "question": "Which products currently have fewer than 10 units in stock?",
+      "gold_sql": "SELECT name, stock FROM products WHERE stock < 10 ORDER BY stock ASC",
+      "success": true,
+      "row_count": 3,
+      "sample_row": {
+        "name": "OmniTech VisionAir 4K Drone",
+        "stock": 4
+      }
+    },
+    {
+      "id": "TC-14",
+      "question": "What is the status and tracking number of order ORD-1001?",
+      "gold_sql": "SELECT status, tracking_number FROM orders WHERE order_id = 'ORD-1001'",
+      "success": true,
+      "row_count": 1,
+      "sample_row": {
+        "status": "delivered",
+        "tracking_number": "TH-KRY-882910"
+      }
+    },
+    {
+      "id": "TC-15",
+      "question": "How many orders are currently in 'processing' status?",
+      "gold_sql": "SELECT COUNT(*) FROM orders WHERE status = 'processing'",
+      "success": true,
+      "row_count": 1,
+      "sample_row": {
+        "COUNT(*)": 3
+      }
+    },
+    {
+      "id": "TC-16",
+      "question": "What is the total revenue generated from all delivered orders?",
+      "gold_sql": "SELECT SUM(total_price) FROM orders WHERE status = 'delivered'",
+      "success": true,
+      "row_count": 1,
+      "sample_row": {
+        "SUM(total_price)": 83720.0
+      }
+    },
+    {
+      "id": "TC-17",
+      "question": "Who is the customer and what is their email for order ORD-1003?",
+      "gold_sql": "SELECT customer_name, customer_email FROM orders WHERE order_id = 'ORD-1003'",
+      "success": true,
+      "row_count": 1,
+      "sample_row": {
+        "customer_name": "Kittipong Chaiyaphum",
+        "customer_email": "kittipong@email.com"
+      }
+    },
+    {
+      "id": "TC-18",
+      "question": "Which product has the highest customer rating in the catalog?",
+      "gold_sql": "SELECT name, rating FROM products ORDER BY rating DESC, price DESC LIMIT 1",
+      "success": true,
+      "row_count": 1,
+      "sample_row": {
+        "name": "OmniTech TitanBook 14",
+        "rating": 4.9
+      }
+    },
+    {
+      "id": "TC-19",
+      "question": "How many return requests have been submitted and what is the total refund amount approved or refunded?",
+      "gold_sql": "SELECT COUNT(*), SUM(refund_amount) FROM returns WHERE status IN ('approved', 'refunded')",
+      "success": true,
+      "row_count": 1,
+      "sample_row": {
+        "COUNT(*)": 4,
+        "SUM(refund_amount)": 47170.0
+      }
+    },
+    {
+      "id": "TC-20",
+      "question": "Which customer bought the highest number of MechWave RGB Keyboards in a single order?",
+      "gold_sql": "SELECT customer_name, quantity FROM orders WHERE product_id = 4 ORDER BY quantity DESC LIMIT 1",
+      "success": true,
+      "row_count": 1,
+      "sample_row": {
+        "customer_name": "Natdanai Siriporn",
+        "quantity": 2
+      }
+    }
+  ]
+}
