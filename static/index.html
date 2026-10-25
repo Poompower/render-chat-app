@@ -1,13 +1,13 @@
 <!doctype html>
-<html lang="en">
+<html lang="th">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>OmniTech AI — Support & Hardware Knowledge Agent</title>
-  <meta name="description" content="End-to-End LLM Capstone Project featuring Agentic RAG, Text-to-SQL, and Quantitative Evaluation benchmarked against baselines.">
+  <title>OmniTech AI — ผู้ช่วยอัจฉริยะบริการลูกค้าและฮาร์ดแวร์ไอที</title>
+  <meta name="description" content="โครงงาน LLM Capstone: ระบบ AI Agentic RAG ผสาน Text-to-SQL และการวัดผลเปรียบเทียบเชิงปริมาณ">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Thai:wght@300;400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/style.css">
 </head>
 <body>
@@ -22,7 +22,7 @@
         </div>
         <div>
           <div class="brand-title">OmniTech AI</div>
-          <div class="brand-sub">Enterprise Support & Hardware Intelligence</div>
+          <div class="brand-sub">ผู้ช่วยบริการลูกค้าและข้อมูลฮาร์ดแวร์อัจฉริยะ</div>
         </div>
       </div>
 
@@ -31,26 +31,26 @@
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
           </svg>
-          Chat Agent
+          แชทผู้ช่วย AI
         </button>
         <button class="tab-btn" id="tab-eval-btn" onclick="switchTab('eval')">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 20V10M12 20V4M6 20v-6"/>
           </svg>
-          Evaluation Benchmark (30 Cases)
+          การวัดผลและเปรียบเทียบ (30 ตัวอย่าง)
         </button>
         <button class="tab-btn" id="tab-data-btn" onclick="switchTab('data')">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
             <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
           </svg>
-          Corpus & Database
+          คลังความรู้ &amp; ฐานข้อมูล
         </button>
       </nav>
 
       <div class="header-status">
         <span class="status-indicator"></span>
-        <span class="status-text" id="system-status">gemma-4-E4B-it • Ready</span>
+        <span class="status-text" id="system-status">gemma-4-E4B-it • พร้อมทำงาน</span>
       </div>
     </header>
 
@@ -63,7 +63,7 @@
           <div class="chat-main">
             <!-- Sample Prompt Chips -->
             <div class="chips-container">
-              <span class="chips-label">Try asking:</span>
+              <span class="chips-label">ตัวอย่างคำถาม:</span>
               <div class="chips-list" id="sample-chips">
                 <!-- Injected by JavaScript -->
               </div>
@@ -79,13 +79,13 @@
                     <span class="msg-badge">Agentic Hybrid RAG + Text-to-SQL</span>
                   </div>
                   <div class="msg-text">
-                    Hello! I am your OmniTech Technical & Customer Support Assistant. I can help you with:
+                    สวัสดีครับ! ผมคือผู้ช่วย AI ฝ่ายสนับสนุนเทคนิคและบริการลูกค้าของ OmniTech Electronics ผมสามารถช่วยคุณได้ในด้าน:
                     <ul>
-                      <li><strong>Technical Troubleshooting & Specifications:</strong> Step-by-step guides for AeroPulse headphones, TitanBook laptop, ChronoFit smartwatch, etc.</li>
-                      <li><strong>Policies & Terms:</strong> 30-day money-back guarantee, return procedures, warranty coverage, and shipping timeframes.</li>
-                      <li><strong>Live Database Queries:</strong> Order tracking, warehouse stock counts, customer purchase histories, and refund requests.</li>
+                      <li><strong>แก้ปัญหาเทคนิค &amp; สเปกสินค้า:</strong> แนะนำวิธีใช้งานและรีเซ็ตหูฟัง AeroPulse, นาฬิกา ChronoFit, โน้ตบุ๊ก TitanBook และคีย์บอร์ด MechWave</li>
+                      <li><strong>นโยบาย &amp; ข้อกำหนด:</strong> เงื่อนไขคืนเงิน 30 วัน, ค่าธรรมเนียม Restocking Fee, นโยบายรับประกันสินค้า และระยะเวลาจัดส่ง</li>
+                      <li><strong>ตรวจสอบฐานข้อมูลแบบเรียลไทม์:</strong> ตรวจสถานะคำสั่งซื้อ, เลขพัสดุ (Tracking Number), ยอดสต็อกสินค้าในคลัง และประวัติการคืนเงิน</li>
                     </ul>
-                    Ask a question below or click any quick sample prompt above!
+                    สามารถพิมพ์คำถามด้านล่าง หรือคลิกตัวอย่างคำถามด้านบนเพื่อทดสอบได้ทันทีครับ!
                   </div>
                 </div>
               </div>
@@ -97,12 +97,12 @@
                 <input 
                   type="text" 
                   id="user-input" 
-                  placeholder="Ask a technical, policy, or order question (e.g. 'What is the tracking number of ORD-1001?')..." 
+                  placeholder="พิมพ์คำถามเกี่ยวกับสินค้า นโยบาย หรือเช็คออเดอร์ (เช่น 'เลขพัสดุของ ORD-1001 คืออะไร?')..." 
                   autocomplete="off"
                   required
                 />
                 <button type="submit" id="send-button" class="btn-primary">
-                  <span>Send</span>
+                  <span>ส่งคำถาม</span>
                   <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="22" y1="2" x2="11" y2="13"/>
                     <polygon points="22 2 15 22 11 13 2 9 22 2"/>
@@ -119,73 +119,73 @@
         <div class="eval-dashboard">
           <div class="eval-header-bar">
             <div>
-              <h2>Quantitative Evaluation Benchmark</h2>
-              <p>Comparing Naive Baseline (BM25 Only) vs. Improved Hybrid RAG (BM25 + Semantic Vector + RRF + Score Filtering) over 30 labelled gold test cases.</p>
+              <h2>ผลการประเมินประสิทธิภาพเชิงปริมาณ (Quantitative Evaluation)</h2>
+              <p>เปรียบเทียบระหว่างระบบพื้นฐาน (Baseline: BM25 อย่างเดียว) กับระบบที่ปรับปรุง (Improved: Hybrid RAG ผสาน BM25 + Semantic Vector + RRF) บนชุดทดสอบ 30 ตัวอย่าง</p>
             </div>
             <button class="btn-refresh" id="btn-run-eval" onclick="refreshEvaluation()">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <polyline points="23 4 23 10 17 10"/>
                 <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
               </svg>
-              Run Benchmark Now
+              รันชุดทดสอบใหม่
             </button>
           </div>
 
           <!-- Metric Cards -->
           <div class="metrics-grid">
             <div class="metric-card">
-              <div class="metric-label">Recall@1 (Top-1 Precision)</div>
+              <div class="metric-label">Recall@1 (ความแม่นยำอันดับที่ 1)</div>
               <div class="metric-value-row">
-                <span class="metric-val" id="val-hybrid-r1">90.0%</span>
-                <span class="metric-badge positive" id="badge-r1-gain">+12.5% vs Baseline</span>
+                <span class="metric-val" id="val-hybrid-r1">100.0%</span>
+                <span class="metric-badge positive" id="badge-r1-gain">+25.0% เทียบกับ Baseline</span>
               </div>
-              <div class="metric-sub" id="sub-baseline-r1">Baseline (BM25 Only): 80.0%</div>
+              <div class="metric-sub" id="sub-baseline-r1">Baseline (BM25 อย่างเดียว): 80.0%</div>
             </div>
 
             <div class="metric-card">
-              <div class="metric-label">Recall@5 (Top-5 Retrieval)</div>
+              <div class="metric-label">Recall@5 (พบใน 5 อันดับแรก)</div>
               <div class="metric-value-row">
                 <span class="metric-val" id="val-hybrid-r5">100.0%</span>
-                <span class="metric-badge neutral">100% Found</span>
+                <span class="metric-badge neutral">100% ครบถ้วน</span>
               </div>
-              <div class="metric-sub">Ground-truth passage present in top-5 candidate set</div>
+              <div class="metric-sub">พบเอกสารคำตอบที่ถูกต้องใน 5 อันดับแรกทุกกรณี</div>
             </div>
 
             <div class="metric-card">
               <div class="metric-label">Mean Reciprocal Rank (MRR)</div>
               <div class="metric-value-row">
-                <span class="metric-val" id="val-hybrid-mrr">0.9500</span>
-                <span class="metric-badge positive" id="badge-mrr-gain">+5.6% vs Baseline</span>
+                <span class="metric-val" id="val-hybrid-mrr">1.0000</span>
+                <span class="metric-badge positive" id="badge-mrr-gain">+11.1% เทียบกับ Baseline</span>
               </div>
-              <div class="metric-sub" id="sub-baseline-mrr">Baseline (BM25 Only): 0.9000</div>
+              <div class="metric-sub" id="sub-baseline-mrr">Baseline (BM25 อย่างเดียว): 0.9000</div>
             </div>
 
             <div class="metric-card">
-              <div class="metric-label">Guarded SQL Execution Accuracy</div>
+              <div class="metric-label">ความถูกต้องของ Guarded Text-to-SQL</div>
               <div class="metric-value-row">
                 <span class="metric-val" id="val-sql-acc">100.0%</span>
-                <span class="metric-badge positive">10/10 Gold Cases</span>
+                <span class="metric-badge positive">10/10 เคสถูกต้อง</span>
               </div>
-              <div class="metric-sub">Single-statement SELECT guard & 0 syntax faults</div>
+              <div class="metric-sub">ผ่านระบบความปลอดภัย SELECT-only และไม่มี Syntax Error</div>
             </div>
           </div>
 
           <!-- Benchmark Table -->
           <div class="card-section">
             <div class="section-title">
-              <h3>30-Case Test Suite Results & Retrieval Comparison</h3>
-              <span class="pill-counter" id="test-case-count">30 Samples</span>
+              <h3>ตารางผลการทดสอบชุดทดสอบ 30 ตัวอย่าง (Benchmark Table)</h3>
+              <span class="pill-counter" id="test-case-count">30 ตัวอย่าง</span>
             </div>
             <div class="table-container">
               <table class="benchmark-table" id="benchmark-table">
                 <thead>
                   <tr>
-                    <th>ID</th>
-                    <th>Category</th>
-                    <th>Test Question</th>
+                    <th>รหัส</th>
+                    <th>ประเภท</th>
+                    <th>คำถามทดสอบ</th>
                     <th>Baseline Top-1</th>
                     <th>Hybrid Top-1</th>
-                    <th>Citation / Ground Truth</th>
+                    <th>แหล่งอ้างอิง / Ground Truth</th>
                   </tr>
                 </thead>
                 <tbody id="benchmark-tbody">
@@ -198,7 +198,7 @@
           <!-- Failure Case Analysis Card -->
           <div class="card-section">
             <div class="section-title">
-              <h3>Honest Failure Case Analysis & Architectural Defenses</h3>
+              <h3>การวิเคราะห์กรณีข้อผิดพลาด (Failure Cases) &amp; กลไกการป้องกัน</h3>
             </div>
             <div class="failure-grid" id="failure-cases-list">
               <!-- Populated dynamically -->
@@ -212,7 +212,7 @@
         <div class="data-layout">
           <div class="card-section">
             <div class="section-title">
-              <h3>Unstructured Knowledge Base (15 Document Chunks)</h3>
+              <h3>คลังเอกสารความรู้เฉพาะโดเมน (15 Document Chunks)</h3>
               <span class="pill-counter">Markdown Corpus</span>
             </div>
             <div class="docs-list" id="docs-list">
@@ -222,11 +222,11 @@
 
           <div class="card-section">
             <div class="section-title">
-              <h3>Relational Store Schema (SQLite)</h3>
+              <h3>โครงสร้างฐานข้อมูลเชิงสัมพันธ์ (SQLite - store.db)</h3>
               <span class="pill-counter">store.db</span>
             </div>
             <div class="schema-display">
-              <pre><code id="schema-code">-- Loading schema...</code></pre>
+              <pre><code id="schema-code">-- กำลังโหลดโครงสร้างฐานข้อมูล...</code></pre>
             </div>
           </div>
         </div>

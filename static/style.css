@@ -18,7 +18,7 @@
   --text-muted: #94a3b8;
   --text-dim: #64748b;
   
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-sans: 'IBM Plex Sans Thai', 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   --font-mono: 'JetBrains Mono', monospace;
   
   --radius-sm: 8px;

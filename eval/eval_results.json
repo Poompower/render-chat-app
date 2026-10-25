@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-24 22:28:11",
+  "timestamp": "2026-10-25 18:08:53",
   "total_test_samples": 30,
   "categories_breakdown": {
     "RAG (Unstructured Docs)": 10,
@@ -17,17 +17,17 @@
     },
     "improved": {
       "name": "Hybrid RAG (BM25 + Dense Semantic + RRF + Score Floor)",
-      "recall@1": 0.9,
+      "recall@1": 0.8,
       "recall@3": 1.0,
       "recall@5": 1.0,
-      "mrr": 0.95
+      "mrr": 0.9
     },
     "improvement": {
-      "delta_recall@1": 0.1,
+      "delta_recall@1": 0.0,
       "delta_recall@5": 0.0,
-      "delta_mrr": 0.05,
-      "recall1_lift_pct": 12.5,
-      "mrr_lift_pct": 5.6
+      "delta_mrr": 0.0,
+      "recall1_lift_pct": 0.0,
+      "mrr_lift_pct": 0.0
     }
   },
   "sql_execution_accuracy": 1.0,
@@ -56,11 +56,11 @@
       "bm25_recall@1": 0.0,
       "bm25_recall@5": 1.0,
       "bm25_mrr": 0.5,
-      "hybrid_top_chunk": "chk_013",
-      "hybrid_recall@1": 1.0,
+      "hybrid_top_chunk": "chk_015",
+      "hybrid_recall@1": 0.0,
       "hybrid_recall@5": 1.0,
-      "hybrid_mrr": 1.0,
-      "top_citation": "[warranty_and_returns.md # 1. 30-Day Money-Back Guarantee]"
+      "hybrid_mrr": 0.5,
+      "top_citation": "[warranty_and_returns.md # 3. Return Procedure & Shipping Costs]"
     },
     {
       "id": "TC-02",

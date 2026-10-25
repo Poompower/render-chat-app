@@ -12,15 +12,17 @@ def get_tool_definitions() -> List[Dict[str, Any]]:
                 "name": "search_knowledge_base",
                 "description": (
                     "Search OmniTech technical documentation, user manuals, warranty policy, "
-                    "refund policy, and shipping guidelines. Call this whenever you need factual details, "
-                    "hardware specifications, reset steps, or policy conditions."
+                    "refund policy, and shipping guidelines. Note: Since the underlying documentation is in English, "
+                    "formulate your query in concise English keywords (e.g., 'return policy restocking fee opened package', "
+                    "'headphone factory reset', 'battery warranty') for optimal retrieval accuracy. "
+                    "Call this whenever you need factual details, hardware specifications, reset steps, or policy conditions."
                 ),
                 "parameters": {
                     "type": "object",
                     "properties": {
                         "query": {
                             "type": "string",
-                            "description": "Natural language search keywords or specific technical topic."
+                            "description": "English keywords or technical search phrase for the knowledge base."
                         }
                     },
                     "required": ["query"]

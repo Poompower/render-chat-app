@@ -99,34 +99,34 @@ def trigger_evaluation():
 def get_sample_queries():
     return [
         {
-            "category": "RAG (Unstructured Docs)",
-            "query": "What is the return window for opened products, and does a restocking fee apply?",
-            "desc": "Tests policy retrieval and citation generation"
+            "category": "RAG (นโยบายร้าน)",
+            "query": "เงื่อนไขการคืนสินค้าที่เปิดกล่องแล้วเป็นอย่างไร และมีค่า Restocking Fee หรือไม่?",
+            "desc": "ทดสอบการค้นหาเอกสารนโยบายและการสร้าง Citation อ้างอิง"
         },
         {
-            "category": "RAG (Troubleshooting)",
-            "query": "How do I factory reset my AeroPulse ANC-X headphones if one ear is silent?",
-            "desc": "Tests product manual step-by-step retrieval"
+            "category": "RAG (แก้ปัญหาเทคนิค)",
+            "query": "วิธีรีเซ็ตหูฟัง AeroPulse ANC-X เป็นค่าโรงงานหากหูฟังดับไปข้างหนึ่งทำอย่างไร?",
+            "desc": "ทดสอบการดึงขั้นตอน Troubleshooting จากคู่มือฮาร์ดแวร์"
         },
         {
-            "category": "SQL (Database Aggregation)",
-            "query": "How many orders are currently in 'processing' status, and which products have stock under 10?",
-            "desc": "Tests guarded SQL generation and database computation"
+            "category": "SQL (คำนวณฐานข้อมูล)",
+            "query": "มีออเดอร์ที่กำลัง processing กี่รายการ และสินค้าใดบ้างที่สต็อกเหลือน้อยกว่า 10 ชิ้น?",
+            "desc": "ทดสอบ Guarded SQL และการคำนวณแม่นยำจากฐานข้อมูล"
         },
         {
-            "category": "SQL (Order Lookup)",
-            "query": "What is the tracking number and customer name for order ORD-1001?",
-            "desc": "Tests exact order lookup via SQL"
+            "category": "SQL (ค้นหาออเดอร์)",
+            "query": "เลขพัสดุและชื่อลูกค้าของคำสั่งซื้อ ORD-1001 คือใครและสถานะเป็นอย่างไร?",
+            "desc": "ทดสอบการดึงข้อมูลเฉพาะเจาะจงด้วย SQL"
         },
         {
-            "category": "Compound (RAG + SQL)",
-            "query": "Can customer in order ORD-1002 still return their product under our warranty policy?",
-            "desc": "Multi-hop: retrieves order delivery date from DB, then checks 30-day policy"
+            "category": "ผสมผสาน (RAG + SQL)",
+            "query": "ลูกค้าในออเดอร์ ORD-1002 ยังสามารถขอคืนสินค้าตามนโยบายรับประกันความพึงพอใจได้ไหม?",
+            "desc": "Multi-hop: ดึงประวัติวันส่งมอบจาก DB แล้วเทียบกับนโยบาย 30 วัน"
         },
         {
-            "category": "Chit-chat (No Tool)",
-            "query": "Hello! Thank you for the assistance.",
-            "desc": "Tests agent routing decision: answers directly without wasteful retrieval"
+            "category": "สนทนาทั่วไป (ไม่ยิง Tool)",
+            "query": "สวัสดีครับ ขอบคุณสำหรับความช่วยเหลือมากๆ นะครับ",
+            "desc": "ทดสอบการตัดสินใจของ Agent: ตอบทักทายตรงโดยไม่เปลือง Token ค้นหา"
         }
     ]
 

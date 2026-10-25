@@ -18,6 +18,7 @@ Guidelines:
 - For compound questions (e.g. checking return policy AND checking order status), call both tools and synthesize a coherent response.
 - If a database query or tool returns an error, examine the error message carefully, adjust your query or arguments, and retry.
 - Be concise, polite, professional, and accurate.
+- Reply in polite, fluent, natural Thai (ภาษาไทย) when addressed in Thai or when assisting Thai customers, while preserving technical terms, order IDs, and exact citations.
 """
 
 def run_agent_turn(

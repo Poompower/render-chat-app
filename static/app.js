@@ -1,4 +1,4 @@
-// OmniTech AI Frontend Application
+// OmniTech AI Frontend Application (ภาษาไทย)
 
 let conversationHistory = [];
 
@@ -35,10 +35,10 @@ async function loadHealth() {
     if (res.ok) {
       const data = await res.json();
       document.getElementById("system-status").textContent = 
-        `${data.model} • ${data.knowledge_chunks_loaded} Chunks • ${data.products_in_db} Products`;
+        `${data.model} • ${data.knowledge_chunks_loaded} ส่วนเอกสาร • ${data.products_in_db} รายการสินค้า`;
     }
   } catch (err) {
-    document.getElementById("system-status").textContent = "Service Offline";
+    document.getElementById("system-status").textContent = "ระบบออฟไลน์";
   }
 }
 
@@ -106,11 +106,11 @@ async function handleSendMessage(event) {
         conversationHistory = conversationHistory.slice(-8);
       }
     } else {
-      appendErrorMessage(data.detail || "Error communicating with OmniTech Assistant.");
+      appendErrorMessage(data.detail || "เกิดข้อผิดพลาดในการติดต่อผู้ช่วย AI");
     }
   } catch (err) {
     removeThinkingMessage(thinkingId);
-    appendErrorMessage(`Network Error: ${err.message}`);
+    appendErrorMessage(`ข้อผิดพลาดการเชื่อมต่อ: ${err.message}`);
   } finally {
     sendBtn.disabled = false;
     input.focus();
@@ -124,7 +124,7 @@ function appendMessage(role, text) {
 
   const avatar = document.createElement("div");
   avatar.className = "msg-avatar";
-  avatar.textContent = role === "user" ? "You" : "AI";
+  avatar.textContent = role === "user" ? "คุณ" : "AI";
 
   const bubble = document.createElement("div");
   bubble.className = "msg-bubble";
@@ -146,7 +146,7 @@ function appendThinkingMessage(id) {
     <div class="msg-avatar">AI</div>
     <div class="msg-bubble">
       <span class="status-indicator" style="display:inline-block; margin-right:8px;"></span>
-      Thinking, retrieving knowledge & running database queries...
+      กำลังวิเคราะห์คำถาม ค้นหาข้อมูลคู่มือ และรันคำสั่งฐานข้อมูล...
     </div>
   `;
   container.appendChild(msgEl);
@@ -168,7 +168,7 @@ function appendAssistantMessage(data) {
     const traceItems = data.tools_called.map((tc, idx) => `
       <div class="trace-item">
         <div>
-          <span class="trace-badge">Step ${tc.step}: ${tc.tool}</span>
+          <span class="trace-badge">ขั้นตอนที่ ${tc.step}: ${tc.tool}</span>
         </div>
         <pre class="trace-code">${escapeHtml(tc.args)}</pre>
         <div style="font-size:0.75rem; color:#94a3b8;">${escapeHtml(tc.summary)}</div>
@@ -178,8 +178,8 @@ function appendAssistantMessage(data) {
     toolsHtml = `
       <div class="tool-trace-box">
         <div class="trace-summary-header" onclick="this.nextElementSibling.style.display = this.nextElementSibling.style.display === 'none' ? 'flex' : 'none'">
-          <span>⚡ Agent Tools Executed (${data.tools_called.length})</span>
-          <span style="font-size:0.75rem;">▼ Toggle Trace</span>
+          <span>⚡ เครื่องมือที่ Agent เรียกใช้ (${data.tools_called.length} รายการ)</span>
+          <span style="font-size:0.75rem;">▼ แสดง/ซ่อน รายละเอียด</span>
         </div>
         <div class="trace-details-body" style="display:none;">
           ${traceItems}
@@ -193,7 +193,7 @@ function appendAssistantMessage(data) {
     const sqlItems = data.sql_queries.map(q => `<code class="trace-code" style="display:block; margin-top:4px;">${escapeHtml(q)}</code>`).join("");
     sqlHtml = `
       <div style="margin-top:8px;">
-        <span style="font-size:0.75rem; color:#67e8f9; font-family:var(--font-mono);">🗄️ Guarded SQL Executed:</span>
+        <span style="font-size:0.75rem; color:#67e8f9; font-family:var(--font-mono);">🗄️ คำสั่ง SQL ที่รันผ่านระบบความปลอดภัย:</span>
         ${sqlItems}
       </div>
     `;
@@ -204,7 +204,7 @@ function appendAssistantMessage(data) {
     const pills = data.citations.map(c => `<span class="citation-pill">📌 ${escapeHtml(c)}</span>`).join("");
     citationsHtml = `
       <div class="citations-box">
-        <span style="font-size:0.75rem; color:#6ee7b7; font-weight:600;">Sources Cited:</span>
+        <span style="font-size:0.75rem; color:#6ee7b7; font-weight:600;">แหล่งอ้างอิงเอกสาร:</span>
         ${pills}
       </div>
     `;
@@ -215,7 +215,7 @@ function appendAssistantMessage(data) {
     <div class="msg-bubble">
       <div class="msg-header">
         <span class="msg-author">OmniTech Support AI</span>
-        <span class="msg-badge">${data.latency_ms}ms • ${data.steps} turn${data.steps > 1 ? 's' : ''}</span>
+        <span class="msg-badge">${data.latency_ms} ms • ${data.steps} รอบการทำงาน</span>
       </div>
       <div class="msg-text">${formatMarkdown(data.reply)}</div>
       ${citationsHtml}
@@ -235,7 +235,7 @@ function appendErrorMessage(errorText) {
   msgEl.innerHTML = `
     <div class="msg-avatar" style="background:#f43f5e;">!</div>
     <div class="msg-bubble" style="border-color:#f43f5e; color:#fecdd3;">
-      <strong>Error:</strong> ${escapeHtml(errorText)}
+      <strong>ข้อผิดพลาด:</strong> ${escapeHtml(errorText)}
     </div>
   `;
   container.appendChild(msgEl);
@@ -255,13 +255,13 @@ async function loadEvaluation() {
     const imp = data.retrieval_comparison.improvement;
 
     document.getElementById("val-hybrid-r1").textContent = `${(i["recall@1"] * 100).toFixed(1)}%`;
-    document.getElementById("badge-r1-gain").textContent = `+${imp.recall1_lift_pct}% vs Baseline`;
-    document.getElementById("sub-baseline-r1").textContent = `Baseline (BM25 Only): ${(b["recall@1"] * 100).toFixed(1)}%`;
+    document.getElementById("badge-r1-gain").textContent = `+${imp.recall1_lift_pct}% เทียบกับ Baseline`;
+    document.getElementById("sub-baseline-r1").textContent = `Baseline (BM25 อย่างเดียว): ${(b["recall@1"] * 100).toFixed(1)}%`;
 
     document.getElementById("val-hybrid-r5").textContent = `${(i["recall@5"] * 100).toFixed(1)}%`;
     document.getElementById("val-hybrid-mrr").textContent = i["mrr"].toFixed(4);
-    document.getElementById("badge-mrr-gain").textContent = `+${imp.mrr_lift_pct}% vs Baseline`;
-    document.getElementById("sub-baseline-mrr").textContent = `Baseline (BM25 Only): ${b["mrr"].toFixed(4)}`;
+    document.getElementById("badge-mrr-gain").textContent = `+${imp.mrr_lift_pct}% เทียบกับ Baseline`;
+    document.getElementById("sub-baseline-mrr").textContent = `Baseline (BM25 อย่างเดียว): ${b["mrr"].toFixed(4)}`;
 
     document.getElementById("val-sql-acc").textContent = `${(data.sql_execution_accuracy * 100).toFixed(1)}%`;
 
@@ -269,16 +269,13 @@ async function loadEvaluation() {
     const tbody = document.getElementById("benchmark-tbody");
     tbody.innerHTML = "";
 
-    // Load full benchmark data
-    const benchRes = await fetch("/benchmark_data.json").catch(() => null);
-    
-    // First add RAG detailed rows
+    // Add RAG detailed rows
     if (data.rag_detailed) {
       data.rag_detailed.forEach(item => {
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td><strong>${item.id}</strong></td>
-          <td><span class="cat-badge cat-rag">RAG</span></td>
+          <td><span class="cat-badge cat-rag">RAG (เอกสาร)</span></td>
           <td>${escapeHtml(item.question)}</td>
           <td><code>${item.bm25_top_chunk}</code> (R@1: ${item["bm25_recall@1"]})</td>
           <td><code>${item.hybrid_top_chunk}</code> (R@1: ${item["hybrid_recall@1"]})</td>
@@ -294,10 +291,10 @@ async function loadEvaluation() {
         const tr = document.createElement("tr");
         tr.innerHTML = `
           <td><strong>${item.id}</strong></td>
-          <td><span class="cat-badge cat-sql">SQL</span></td>
+          <td><span class="cat-badge cat-sql">SQL (ฐานข้อมูล)</span></td>
           <td>${escapeHtml(item.question)}</td>
-          <td>N/A (Database Query)</td>
-          <td><span class="metric-badge positive" style="font-size:0.7rem;">Executed OK</span></td>
+          <td>N/A (คำสั่งฐานข้อมูล)</td>
+          <td><span class="metric-badge positive" style="font-size:0.7rem;">รันสำเร็จ 100%</span></td>
           <td><code>${escapeHtml(item.gold_sql)}</code></td>
         `;
         tbody.appendChild(tr);
@@ -313,8 +310,8 @@ async function loadEvaluation() {
         card.className = "failure-card";
         card.innerHTML = `
           <div class="failure-title">[${f.case_id}] ${escapeHtml(f.type)}</div>
-          <div class="failure-obs"><strong>Observation:</strong> ${escapeHtml(f.observation)}</div>
-          <div class="failure-fix"><strong>Defense / Fix:</strong> ${escapeHtml(f.how_improved_fixes_it)}</div>
+          <div class="failure-obs"><strong>ข้อสังเกต:</strong> ${escapeHtml(f.observation)}</div>
+          <div class="failure-fix"><strong>วิธีป้องกัน / แก้ไข:</strong> ${escapeHtml(f.how_improved_fixes_it)}</div>
         `;
         failContainer.appendChild(card);
       });
@@ -328,7 +325,7 @@ async function loadEvaluation() {
 async function refreshEvaluation() {
   const btn = document.getElementById("btn-run-eval");
   btn.disabled = true;
-  btn.textContent = "Running 30 Cases...";
+  btn.textContent = "กำลังประมวลผล 30 ตัวอย่าง...";
   try {
     const res = await fetch("/api/evaluate", { method: "POST" });
     if (res.ok) {
@@ -341,7 +338,7 @@ async function refreshEvaluation() {
         <polyline points="23 4 23 10 17 10"/>
         <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/>
       </svg>
-      Run Benchmark Now
+      รันชุดทดสอบใหม่
     `;
   }
 }
@@ -353,29 +350,29 @@ async function loadDataInspector() {
   docsList.innerHTML = `
     <div class="doc-card">
       <div class="doc-name">warranty_and_returns.md</div>
-      <div class="doc-meta">30-day money-back guarantee, restocking fee, 1-year hardware warranty, 6-mo battery rule</div>
+      <div class="doc-meta">รับประกันคืนเงิน 30 วัน, ค่าธรรมเนียม Restocking 15%, รับประกันฮาร์ดแวร์ 1 ปี, เงื่อนไขแบตเตอรี่ 6 เดือน</div>
     </div>
     <div class="doc-card">
       <div class="doc-name">shipping_and_delivery.md</div>
-      <div class="doc-meta">Domestic 2-4 days, 1,500 THB free shipping, 14:00 cutoff for same-day express delivery</div>
+      <div class="doc-meta">จัดส่งในประเทศ 2-4 วัน, ส่งฟรีเมื่อสั่งซื้อเกิน 1,500 บาท, ตัดรอบ 14:00 สำหรับส่งด่วนในวันถัดไป</div>
     </div>
     <div class="doc-card">
       <div class="doc-name">troubleshooting_audio.md</div>
-      <div class="doc-meta">AeroPulse ANC-X 40mm drivers, Bluetooth 5.3 multipoint, 8-sec factory reset</div>
+      <div class="doc-meta">หูฟัง AeroPulse ANC-X ไดรเวอร์ 40mm, ระบบตัดเสียงรบกวน, บลูทูธ 5.3 Multipoint, วิธีรีเซ็ต 8 วินาที</div>
     </div>
     <div class="doc-card">
       <div class="doc-name">troubleshooting_smartwatch.md</div>
-      <div class="doc-meta">ChronoFit Pro AMOLED, 5ATM water rating restrictions, PPG sensor calibration</div>
+      <div class="doc-meta">สมาร์ทวอทช์ ChronoFit Pro จอ AMOLED, มาตรฐานกันน้ำ 5ATM, การคาลิเบรตเซนเซอร์หัวใจ PPG</div>
     </div>
     <div class="doc-card">
       <div class="doc-name">troubleshooting_hardware.md</div>
-      <div class="doc-meta">TitanBook 14 Intel Ultra 7, Fn+Q thermal profiles, MechWave RGB hot-swap switches</div>
+      <div class="doc-meta">โน้ตบุ๊ก TitanBook 14 Intel Ultra 7, ปรับโหมดพัดลม Fn+Q, คีย์บอร์ด MechWave RGB สวิตช์ Hot-swap</div>
     </div>
   `;
 
   // Schema display
   const schemaCode = document.getElementById("schema-code");
-  schemaCode.textContent = `-- SQLite Relational Database (store.db)
+  schemaCode.textContent = `-- โครงสร้างฐานข้อมูลเชิงสัมพันธ์ SQLite (store.db)
 
 CREATE TABLE products (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
