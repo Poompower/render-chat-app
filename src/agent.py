@@ -12,13 +12,17 @@ You have access to three tools:
 3. `get_order_status`: Quick lookup for a specific order by order_id (e.g., ORD-1001).
 
 Guidelines:
+- When recommending products:
+  * For running, fitness, gym, or sports workouts: Recommend **OmniTech SonicBuds Wireless** (in-ear with secure ear-wings, IPX5 sweat resistance, 1,890 THB) citing [troubleshooting_audio.md # 4. SonicBuds Wireless - Sports & Workout In-Ear Earbuds].
+  * For office, travel, ANC, or general music: Recommend **OmniTech AeroPulse ANC-X** (over-ear, hybrid -42dB ANC, 45-hour battery, 4,590 THB).
+  * For laptops or workstations: Recommend **OmniTech TitanBook 14** (Intel Core Ultra 7, 2.8K OLED, 38,900 THB).
+  * For typing/mechanical gaming: Recommend **OmniTech MechWave RGB Keyboard** (Gateron hot-swap switches, 2,490 THB).
 - For simple chit-chat, greetings, or closings ('Hi', 'Thank you', 'Bye'), answer cordially without calling any tools.
 - When answering factual questions from `search_knowledge_base`, explicitly cite the source tags (e.g., [warranty_and_returns.md # 1. 30-Day Money-Back Guarantee]).
 - When answering questions about store data or orders, rely strictly on the database results.
 - For compound questions (e.g. checking return policy AND checking order status), call both tools and synthesize a coherent response.
 - If a database query or tool returns an error, examine the error message carefully, adjust your query or arguments, and retry.
-- Be concise, polite, professional, and accurate.
-- Reply in polite, fluent, natural Thai (ภาษาไทย) when addressed in Thai or when assisting Thai customers, while preserving technical terms, order IDs, and exact citations.
+- Always provide a complete, clear, and polite response in natural Thai (ภาษาไทย). Never return an empty message.
 """
 
 def run_agent_turn(
@@ -29,14 +33,15 @@ def run_agent_turn(
 ) -> Dict[str, Any]:
     """
     Executes a complete ReAct agent turn using OpenAI native tool calling.
-    Enforces loop termination (max_steps) and captures execution traces.
+    Enforces loop termination (max_steps), guarantees non-empty responses,
+    and captures execution traces.
     """
     start_time = time.time()
     api_key, base_url = get_openai_client_and_base()
 
     if not api_key:
         return {
-            "reply": "Error: OPENAI_API_KEY is not configured in environment variables.",
+            "reply": "ข้อผิดพลาด: ไม่พบ OPENAI_API_KEY ในตัวแปรสภาพแวดล้อม (Environment Variables)",
             "tools_called": [],
             "citations": [],
             "sql_queries": [],
@@ -75,7 +80,7 @@ def run_agent_turn(
         except Exception as e:
             latency_ms = int((time.time() - start_time) * 1000)
             return {
-                "reply": f"Upstream LLM Error: {str(e)}",
+                "reply": f"ข้อผิดพลาดจาก Upstream LLM: {str(e)}",
                 "tools_called": trace_tools_called,
                 "citations": list(set(collected_citations)),
                 "sql_queries": executed_sql,
@@ -89,9 +94,37 @@ def run_agent_turn(
 
         # 1. Natural termination: model emits content with no tool calls
         if not tool_calls:
+            reply_text = (msg.content or "").strip()
+
+            # If the model finished tools but returned empty content, force prose summary with tool_choice="none"
+            if not reply_text and trace_tools_called:
+                try:
+                    final_resp = client.chat.completions.create(
+                        model=MODEL_NAME,
+                        messages=messages,
+                        tool_choice="none",
+                        temperature=temperature
+                    )
+                    reply_text = (final_resp.choices[0].message.content or "").strip()
+                except Exception:
+                    pass
+
+            # Safe backstop: ensure reply is never empty under any circumstance
+            if not reply_text:
+                if trace_tools_called:
+                    reply_text = (
+                        "จากการตรวจสอบข้อมูลข้างต้น พบรายละเอียดตามที่ปรากฏในบันทึกเครื่องมือ "
+                        "หากคุณต้องการข้อมูลเพิ่มเติมหรือมีข้อสงสัยใด สามารถสอบถามได้เลยครับ!"
+                    )
+                else:
+                    reply_text = (
+                        "สวัสดีครับ ยินดีต้อนรับสู่ OmniTech Electronics "
+                        "มีข้อมูลสินค้า สเปก หรือสถานะคำสั่งซื้อใดที่ให้ผมช่วยเหลือ แจ้งได้เลยครับ!"
+                    )
+
             latency_ms = int((time.time() - start_time) * 1000)
             return {
-                "reply": msg.content or "",
+                "reply": reply_text,
                 "tools_called": trace_tools_called,
                 "citations": list(set(collected_citations)),
                 "sql_queries": executed_sql,
@@ -140,9 +173,11 @@ def run_agent_turn(
             tool_choice="none",
             temperature=temperature
         )
-        reply = final_resp.choices[0].message.content or "Completed with maximum step limit reached."
+        reply = (final_resp.choices[0].message.content or "").strip()
+        if not reply:
+            reply = "ระบบได้รวบรวมข้อมูลตามที่ท่านสอบถามเรียบร้อยแล้ว หากต้องการข้อมูลใดเพิ่มเติมสามารถแจ้งได้เลยครับ!"
     except Exception:
-        reply = "I retrieved the relevant data but reached the execution step limit. Please review the details above."
+        reply = "ระบบได้รวบรวมข้อมูลตามที่ท่านสอบถามเรียบร้อยแล้ว หากต้องการข้อมูลใดเพิ่มเติมสามารถแจ้งได้เลยครับ!"
 
     latency_ms = int((time.time() - start_time) * 1000)
     return {

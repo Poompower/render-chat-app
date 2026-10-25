@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-25 18:08:53",
+  "timestamp": "2026-10-25 18:22:00",
   "total_test_samples": 30,
   "categories_breakdown": {
     "RAG (Unstructured Docs)": 10,
@@ -10,24 +10,24 @@
   "retrieval_comparison": {
     "baseline": {
       "name": "BM25 Lexical Search Only (Lecture 6 naive baseline)",
-      "recall@1": 0.8,
-      "recall@3": 1.0,
-      "recall@5": 1.0,
-      "mrr": 0.9
+      "recall@1": 0.3,
+      "recall@3": 0.4,
+      "recall@5": 0.7,
+      "mrr": 0.42
     },
     "improved": {
       "name": "Hybrid RAG (BM25 + Dense Semantic + RRF + Score Floor)",
-      "recall@1": 0.8,
-      "recall@3": 1.0,
-      "recall@5": 1.0,
-      "mrr": 0.9
+      "recall@1": 0.3,
+      "recall@3": 0.4,
+      "recall@5": 0.7,
+      "mrr": 0.3983
     },
     "improvement": {
       "delta_recall@1": 0.0,
       "delta_recall@5": 0.0,
-      "delta_mrr": 0.0,
+      "delta_mrr": -0.0217,
       "recall1_lift_pct": 0.0,
-      "mrr_lift_pct": 0.0
+      "mrr_lift_pct": -5.2
     }
   },
   "sql_execution_accuracy": 1.0,
@@ -52,15 +52,15 @@
       "expected_chunks": [
         "chk_013"
       ],
-      "bm25_top_chunk": "chk_015",
+      "bm25_top_chunk": "chk_014",
       "bm25_recall@1": 0.0,
-      "bm25_recall@5": 1.0,
-      "bm25_mrr": 0.5,
-      "hybrid_top_chunk": "chk_015",
+      "bm25_recall@5": 0.0,
+      "bm25_mrr": 0.0,
+      "hybrid_top_chunk": "chk_014",
       "hybrid_recall@1": 0.0,
-      "hybrid_recall@5": 1.0,
-      "hybrid_mrr": 0.5,
-      "top_citation": "[warranty_and_returns.md # 3. Return Procedure & Shipping Costs]"
+      "hybrid_recall@5": 0.0,
+      "hybrid_mrr": 0.0,
+      "top_citation": "[warranty_and_returns.md # 1. 30-Day Money-Back Guarantee]"
     },
     {
       "id": "TC-02",
@@ -68,14 +68,14 @@
       "expected_chunks": [
         "chk_014"
       ],
-      "bm25_top_chunk": "chk_014",
-      "bm25_recall@1": 1.0,
-      "bm25_recall@5": 1.0,
-      "bm25_mrr": 1.0,
-      "hybrid_top_chunk": "chk_014",
-      "hybrid_recall@1": 1.0,
-      "hybrid_recall@5": 1.0,
-      "hybrid_mrr": 1.0,
+      "bm25_top_chunk": "chk_015",
+      "bm25_recall@1": 0.0,
+      "bm25_recall@5": 0.0,
+      "bm25_mrr": 0.0,
+      "hybrid_top_chunk": "chk_015",
+      "hybrid_recall@1": 0.0,
+      "hybrid_recall@5": 0.0,
+      "hybrid_mrr": 0.0,
       "top_citation": "[warranty_and_returns.md # 2. Limited Warranty Coverage]"
     },
     {
@@ -85,14 +85,14 @@
         "chk_010",
         "chk_014"
       ],
-      "bm25_top_chunk": "chk_014",
-      "bm25_recall@1": 1.0,
+      "bm25_top_chunk": "chk_015",
+      "bm25_recall@1": 0.0,
       "bm25_recall@5": 1.0,
-      "bm25_mrr": 1.0,
-      "hybrid_top_chunk": "chk_014",
-      "hybrid_recall@1": 1.0,
+      "bm25_mrr": 0.2,
+      "hybrid_top_chunk": "chk_015",
+      "hybrid_recall@1": 0.0,
       "hybrid_recall@5": 1.0,
-      "hybrid_mrr": 1.0,
+      "hybrid_mrr": 0.2,
       "top_citation": "[warranty_and_returns.md # 2. Limited Warranty Coverage]"
     },
     {
@@ -149,14 +149,14 @@
       "expected_chunks": [
         "chk_008"
       ],
-      "bm25_top_chunk": "chk_008",
-      "bm25_recall@1": 1.0,
+      "bm25_top_chunk": "chk_009",
+      "bm25_recall@1": 0.0,
       "bm25_recall@5": 1.0,
-      "bm25_mrr": 1.0,
-      "hybrid_top_chunk": "chk_008",
-      "hybrid_recall@1": 1.0,
+      "bm25_mrr": 0.5,
+      "hybrid_top_chunk": "chk_009",
+      "hybrid_recall@1": 0.0,
       "hybrid_recall@5": 1.0,
-      "hybrid_mrr": 1.0,
+      "hybrid_mrr": 0.333,
       "top_citation": "[troubleshooting_hardware.md # 2. TitanBook Display & External Monitors]"
     },
     {
@@ -165,14 +165,14 @@
       "expected_chunks": [
         "chk_007"
       ],
-      "bm25_top_chunk": "chk_008",
+      "bm25_top_chunk": "chk_009",
       "bm25_recall@1": 0.0,
       "bm25_recall@5": 1.0,
-      "bm25_mrr": 0.5,
-      "hybrid_top_chunk": "chk_008",
+      "bm25_mrr": 0.25,
+      "hybrid_top_chunk": "chk_009",
       "hybrid_recall@1": 0.0,
       "hybrid_recall@5": 1.0,
-      "hybrid_mrr": 0.5,
+      "hybrid_mrr": 0.25,
       "top_citation": "[troubleshooting_hardware.md # 2. TitanBook Display & External Monitors]"
     },
     {
@@ -181,14 +181,14 @@
       "expected_chunks": [
         "chk_009"
       ],
-      "bm25_top_chunk": "chk_009",
-      "bm25_recall@1": 1.0,
-      "bm25_recall@5": 1.0,
-      "bm25_mrr": 1.0,
-      "hybrid_top_chunk": "chk_009",
-      "hybrid_recall@1": 1.0,
-      "hybrid_recall@5": 1.0,
-      "hybrid_mrr": 1.0,
+      "bm25_top_chunk": "chk_010",
+      "bm25_recall@1": 0.0,
+      "bm25_recall@5": 0.0,
+      "bm25_mrr": 0.0,
+      "hybrid_top_chunk": "chk_010",
+      "hybrid_recall@1": 0.0,
+      "hybrid_recall@5": 0.0,
+      "hybrid_mrr": 0.0,
       "top_citation": "[troubleshooting_hardware.md # 3. MechWave RGB Mechanical Keyboard Troubleshooting]"
     },
     {
@@ -197,14 +197,14 @@
       "expected_chunks": [
         "chk_015"
       ],
-      "bm25_top_chunk": "chk_015",
-      "bm25_recall@1": 1.0,
+      "bm25_top_chunk": "chk_016",
+      "bm25_recall@1": 0.0,
       "bm25_recall@5": 1.0,
-      "bm25_mrr": 1.0,
-      "hybrid_top_chunk": "chk_015",
-      "hybrid_recall@1": 1.0,
+      "bm25_mrr": 0.25,
+      "hybrid_top_chunk": "chk_016",
+      "hybrid_recall@1": 0.0,
       "hybrid_recall@5": 1.0,
-      "hybrid_mrr": 1.0,
+      "hybrid_mrr": 0.2,
       "top_citation": "[warranty_and_returns.md # 3. Return Procedure & Shipping Costs]"
     }
   ],
