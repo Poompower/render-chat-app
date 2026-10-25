@@ -71,6 +71,7 @@ body {
   display: flex;
   flex-direction: column;
   height: 100vh;
+  height: 100dvh;
 }
 
 /* Top Navigation Bar */
@@ -835,4 +836,291 @@ body {
   font-size: 0.82rem;
   overflow-x: auto;
   max-height: 400px;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints & Mobile Adaptations (Neubrutalism Mobile)
+   ========================================================================== */
+
+/* Tablets & Small Laptops (max-width: 1024px) */
+@media (max-width: 1024px) {
+  .app-container {
+    padding: 12px 14px;
+  }
+  .app-header {
+    padding: 10px 16px;
+  }
+  .nav-tabs {
+    gap: 4px;
+  }
+  .tab-btn {
+    padding: 6px 14px;
+    font-size: 0.85rem;
+  }
+  .metrics-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  .failure-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Medium Tablets & Mobile Phones (max-width: 768px) */
+@media (max-width: 768px) {
+  .app-container {
+    padding: 8px 10px;
+  }
+
+  .app-header {
+    flex-wrap: wrap;
+    gap: 10px;
+    padding: 10px 14px;
+    margin-bottom: 10px;
+  }
+
+  .brand {
+    order: 1;
+    gap: 10px;
+  }
+
+  .brand-icon {
+    width: 36px;
+    height: 36px;
+  }
+
+  .brand-title {
+    font-size: 1.1rem;
+  }
+
+  .brand-sub {
+    display: none; /* Hide subtitle on mobile to save vertical space */
+  }
+
+  .header-status {
+    order: 2;
+    padding: 5px 12px;
+    font-size: 0.75rem;
+  }
+
+  .nav-tabs {
+    order: 3;
+    width: 100%;
+    justify-content: space-around;
+    padding: 4px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    justify-content: center;
+    padding: 7px 10px;
+    font-size: 0.82rem;
+  }
+
+  .tab-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Chat Pane */
+  .chat-layout {
+    border-radius: var(--radius-md);
+  }
+
+  .chips-container {
+    padding: 8px 12px;
+  }
+
+  .chips-label {
+    font-size: 0.78rem;
+  }
+
+  .chip-btn {
+    padding: 5px 12px;
+    font-size: 0.78rem;
+  }
+
+  .messages-container {
+    padding: 14px 12px;
+    gap: 14px;
+  }
+
+  .message {
+    max-width: 95%;
+    gap: 8px;
+  }
+
+  .msg-avatar {
+    width: 32px;
+    height: 32px;
+    font-size: 0.78rem;
+    border-radius: 8px;
+  }
+
+  .msg-bubble {
+    padding: 12px 14px;
+    font-size: 0.88rem;
+    border-radius: 12px;
+  }
+
+  .msg-header {
+    margin-bottom: 6px;
+    padding-bottom: 6px;
+  }
+
+  .msg-author {
+    font-size: 0.82rem;
+  }
+
+  .msg-badge {
+    font-size: 0.7rem;
+    padding: 1px 6px;
+  }
+
+  /* Chat Input */
+  .chat-input-wrapper {
+    padding: 10px 12px;
+  }
+
+  #chat-form {
+    gap: 8px;
+  }
+
+  #user-input {
+    padding: 10px 14px;
+    font-size: 0.88rem;
+  }
+
+  .btn-primary {
+    padding: 0 16px;
+    font-size: 0.88rem;
+  }
+
+  /* Evaluation Dashboard */
+  .eval-dashboard {
+    padding: 14px 12px;
+    gap: 16px;
+  }
+
+  .eval-header-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .eval-header-bar h2 {
+    font-size: 1.15rem;
+  }
+
+  .eval-header-bar p {
+    font-size: 0.8rem;
+  }
+
+  .btn-refresh {
+    width: 100%;
+    justify-content: center;
+    padding: 9px 14px;
+    font-size: 0.82rem;
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .metric-card {
+    padding: 12px 14px;
+    gap: 4px;
+  }
+
+  .metric-label {
+    font-size: 0.75rem;
+  }
+
+  .metric-val {
+    font-size: 1.5rem;
+  }
+
+  .metric-badge {
+    font-size: 0.68rem;
+    padding: 2px 6px;
+  }
+
+  .metric-sub {
+    font-size: 0.72rem;
+  }
+
+  .card-section {
+    padding: 14px 12px;
+  }
+
+  .section-title h3 {
+    font-size: 0.95rem;
+  }
+
+  .benchmark-table th, .benchmark-table td {
+    padding: 8px 10px;
+    font-size: 0.76rem;
+  }
+
+  /* Corpus Tab */
+  .data-layout {
+    padding: 14px 12px;
+    gap: 14px;
+  }
+
+  .docs-list {
+    grid-template-columns: 1fr;
+  }
+
+  .schema-display pre {
+    padding: 12px;
+    font-size: 0.75rem;
+  }
+}
+
+/* Small Mobile Screens (max-width: 480px) */
+@media (max-width: 480px) {
+  .app-container {
+    padding: 6px 6px;
+  }
+
+  .app-header {
+    padding: 8px 10px;
+    border-radius: 14px;
+  }
+
+  .brand-title {
+    font-size: 1rem;
+  }
+
+  .header-status {
+    padding: 4px 8px;
+    font-size: 0.7rem;
+  }
+
+  .tab-btn {
+    padding: 6px 6px;
+    font-size: 0.78rem;
+    gap: 4px;
+  }
+
+  .tab-btn svg {
+    display: none; /* Hide icons to save room for clean text */
+  }
+
+  .metrics-grid {
+    grid-template-columns: 1fr; /* Single column on very small phones */
+  }
+
+  .btn-primary span {
+    display: none; /* Only show arrow icon on small phone */
+  }
+
+  .btn-primary {
+    padding: 0 16px;
+  }
+
+  .message {
+    max-width: 98%;
+  }
 }
