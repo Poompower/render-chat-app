@@ -422,11 +422,28 @@ function escapeHtml(str) {
 function formatMarkdown(text) {
   if (!text) return "";
   let html = escapeHtml(text);
+  
   // Bold
   html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+  
   // Inline code
   html = html.replace(/`([^`]+)`/g, '<code class="trace-code" style="padding:2px 5px;">$1</code>');
-  // Line breaks
+  
+  // Inline Citation tags like [warranty_and_returns.md # 1. Section]
+  html = html.replace(/\[([a-zA-Z0-9_\-\.]+\.md\s*#\s*[^\]]+)\]/g, 
+    '<span class="citation-pill" style="display:inline-block; margin:2px 0; font-size:0.75rem;">📌 $1</span>');
+  
+  // Handle numbered lists (e.g. 1. 2. 3.)
+  html = html.replace(/(?:^|\n)(\d+)\.\s+(.+)/g, '<li style="margin-left:18px; list-style-type:decimal;">$2</li>');
+
+  // Handle unordered bullet lists (e.g. * or -)
+  html = html.replace(/(?:^|\n)[*\-]\s+(.+)/g, '<li style="margin-left:18px; list-style-type:disc;">$1</li>');
+  
+  // Wrap sequential <li> tags with <ul>
+  html = html.replace(/(<li[\s\S]*?<\/li>)/g, '<ul style="margin:8px 0;">$1</ul>');
+  html = html.replace(/<\/ul>\s*<ul style="margin:8px 0;">/g, '');
+  
+  // Line breaks for remaining text
   html = html.replace(/\n\n/g, '<br><br>').replace(/\n/g, '<br>');
   return html;
 }

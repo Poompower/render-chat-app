@@ -1,5 +1,5 @@
 {
-  "timestamp": "2026-10-25 18:22:00",
+  "timestamp": "2026-10-25 18:27:12",
   "total_test_samples": 30,
   "categories_breakdown": {
     "RAG (Unstructured Docs)": 10,
@@ -169,11 +169,11 @@
       "bm25_recall@1": 0.0,
       "bm25_recall@5": 1.0,
       "bm25_mrr": 0.25,
-      "hybrid_top_chunk": "chk_009",
+      "hybrid_top_chunk": "chk_008",
       "hybrid_recall@1": 0.0,
       "hybrid_recall@5": 1.0,
       "hybrid_mrr": 0.25,
-      "top_citation": "[troubleshooting_hardware.md # 2. TitanBook Display & External Monitors]"
+      "top_citation": "[troubleshooting_hardware.md # 1. TitanBook 14 Laptop Specifications & Thermal Management]"
     },
     {
       "id": "TC-09",
